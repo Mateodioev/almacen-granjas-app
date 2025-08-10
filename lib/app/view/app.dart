@@ -1,3 +1,4 @@
+import 'package:almacen_granja/config/theme/theme.dart';
 import 'package:almacen_granja/counter/counter.dart';
 import 'package:almacen_granja/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +8,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = View.of(context).platformDispatcher.platformBrightness;
+    final textTheme = createTextTheme(context, 'Onest', 'Onest');
+
+    final theme = MaterialTheme(textTheme);
+
     return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        ),
-        useMaterial3: true,
-      ),
+      theme: brightness == Brightness.light ? theme.light() : theme.dark(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: const CounterPage(),
